@@ -4,6 +4,7 @@ fn main() {
     let mut choice = String::new();
 
     loop {
+        choice.clear(); //added to avoid panic error so that parse operates on a clear string
         println!("****************************************************");
         println!("Please Select Any One of the Algorithms Below: ");
         println!("1. Dijkstra’s algorithm");
@@ -31,22 +32,22 @@ fn main() {
 }
 
 fn dijkstras() {
-    println!("dijkstars selected.");
+    println!("Dijkstra'ss selected.");
     
 }
 
 fn bellmanford() {
-    println!("bell-man ford selected.");
+    println!("Bellman Ford selected.");
 }
 
 fn dfs() {
-    println!("dfs selected.");
+    println!("DFS selected.");
 }
 
 fn kosaraju() {
-    println!("kosaraju selected.");
+    println!("Kosaraju selected.");
 }
 
 fn bfs(){
-    println!("bfs selected.");
+    println!("BFS selected.");
 }
