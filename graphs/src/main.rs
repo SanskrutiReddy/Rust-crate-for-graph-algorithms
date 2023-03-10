@@ -1,7 +1,7 @@
 mod list_of_algorithms;
 use std::io::{stdin, stdout, Write};
 pub use crate::list_of_algorithms::{
-    dijkstras::dijkstras::dijkstars,
+    dijkstras::dijkstras::dijkstras,
     bellmanford::bellmanford::bellmanford,
     dfs::dfs::dfs,
     kosaraju::kosaraju::kosaraju,
@@ -27,7 +27,7 @@ fn main() {
         let number: i32 = choice.trim().parse().expect("Invalid input");
         println!("****************************************************");
         match number {
-            1 => dijkstars(),
+            1 => dijkstras(),
             2 => bellmanford(),
             3 => dfs(),
             4 => kosaraju(),

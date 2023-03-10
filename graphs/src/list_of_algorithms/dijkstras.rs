@@ -1,7 +1,7 @@
 
 pub mod dijkstras {
     use std::{io::{stdin, stdout, Write}};
-    pub fn dijkstars() {
+    pub fn dijkstras() {
         let mut ve = String::new();
         let mut so = String::new();
         println!("***************Dijkstars Algorithm******************");
