@@ -1,6 +1,10 @@
 
 pub mod dijkstras {
     use std::{io::{stdin, stdout, Write}};
+    struct Node {
+        vertex: usize,
+        dist: i32,
+    }
     pub fn dijkstras() {
         let mut ve = String::new();
         let mut so = String::new();
