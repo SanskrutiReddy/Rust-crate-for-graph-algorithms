@@ -5,6 +5,25 @@ pub mod dijkstras {
         vertex: usize,
         dist: i32,
     }
+    //graph structure
+    struct Graph {
+        adj_list: Vec<Vec<Node>>, //adjacency list representation using node structure
+        vertices: usize, //total no of vertices
+    }
+    impl Graph {
+        fn new(vertices: usize) -> Self {
+            Graph {
+                adj_list: vec![Vec::new(); vertices],
+                vertices,
+            }
+        }
+    
+        //Adding edges to the graph
+        fn add_edge(&mut self, u: usize, v: usize, w: i32) {
+            self.adj_list[u].push(Node { vertex: v, dist: w });
+            self.adj_list[v].push(Node { vertex: u, dist: w });
+        }
+    }
     pub fn dijkstras() {
         let mut ve = String::new();
         let mut so = String::new();
@@ -23,7 +42,7 @@ pub mod dijkstras {
         let _= stdout().flush();
         stdin().read_line(&mut edges).expect("Please Enter Valid Input for .");
         let edges: i32 = edges.trim().parse().expect("Invalid input for source");
-        // let mut g = Graph::new(vertices);
+        let mut g = Graph::new(vertices);
         let mut cnt = 0;
         while cnt < edges {
             println!("Please Enter Edge {} values ",cnt+1);
@@ -44,6 +63,7 @@ pub mod dijkstras {
             let w: i32 = w.trim().parse().expect("Invalid input for source");
 
             // add edge code goes here
+            g.add_edge(s, d, w);
             cnt = cnt + 1;
         }
        
