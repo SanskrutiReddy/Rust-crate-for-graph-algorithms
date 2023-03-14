@@ -1,6 +1,7 @@
 
 pub mod dijkstras {
     use std::{io::{stdin, stdout, Write}};
+    #[derive(Clone)]
     struct Node {
         vertex: usize,
         dist: i32,
@@ -23,17 +24,24 @@ pub mod dijkstras {
             self.adj_list[u].push(Node { vertex: v, dist: w });
             self.adj_list[v].push(Node { vertex: u, dist: w });
         }
+
+        fn dijkstra(&self, src: usize) {
+            let mut dist = vec![i32::max_value(); self.vertices]; //initialize all distances to max value
+            dist[src] = 0; //initialize distance from source vertex to the source as 0
+
+            
+        }
     }
     pub fn dijkstras() {
         let mut ve = String::new();
         let mut so = String::new();
-        println!("***************Dijkstars Algorithm******************");
+        println!("***************Dijkstras Algorithm******************");
         println!("****************************************************");
         print!("Please Enter Number of Vertices : ");
         let _= stdout().flush();
         stdin().read_line(&mut ve).expect("Please Enter Valid number for vertices.");
         let vertices: usize = ve.trim().parse().expect("Invalid input");
-        print!("Please Source Vertex : ");
+        print!("Please Enter Source Vertex : ");
         let _= stdout().flush();
         stdin().read_line(&mut so).expect("Please Enter Valid Input for .");
         let source: usize = so.trim().parse().expect("Invalid input for source");
