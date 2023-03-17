@@ -1,7 +1,8 @@
 
 pub mod dijkstras {
     use std::{io::{stdin, stdout, Write}, collections::{HashSet, BinaryHeap}, cmp::Ordering};
-    #[derive(Clone,PartialEq)]
+    
+    #[derive(Clone, Eq, PartialEq, PartialOrd)]
     struct Node {
         vertex: usize,
         dist: i32,
@@ -11,10 +12,10 @@ pub mod dijkstras {
         adj_list: Vec<Vec<Node>>, //adjacency list representation using node structure
         vertices: usize, //total no of vertices
     }
-    
-    impl PartialOrd for Node {
-        fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-            Some(other.dist.cmp(&self.dist))
+
+    impl Ord for Node {
+        fn cmp(&self, other: &Self) -> Ordering {
+            other.dist.cmp(&self.dist)
         }
     }
     
@@ -34,13 +35,14 @@ pub mod dijkstras {
 
         fn dijkstra(&self, src: usize) {
             let mut dist = vec![i32::max_value(); self.vertices]; //initialize all distances to max value
+            let mut visited:HashSet<Node> = HashSet::new();
             dist[src] = 0; //initialize distance from source vertex to the source as 0
-            let mut visited = HashSet::new();// to add and check whether the vertex is already visited or not.
             let mut pq = BinaryHeap::new();
             pq.push(Node{
                 vertex: src,
                 dist: dist[src]
             });
+            
         }
     }
     pub fn dijkstras() {
