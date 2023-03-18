@@ -57,7 +57,7 @@ pub mod bellmanford {
         let _= stdout().flush();
         stdin().read_line(&mut n_edges).expect("Enter Valid Input");
         let n_edges: i32 = n_edges.trim().parse().expect("Invalid input for source");
-        //assign the weights to each edge from the console
+        //assign the weights to each edge from the consol
         let mut e= add_weights(vertices, source, n_edges);
         //print!("If you want add edges press 1")
         // add new edges if the user want to add more edges at this point
