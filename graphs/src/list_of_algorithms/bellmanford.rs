@@ -45,7 +45,15 @@ pub mod bellmanford {
                     }
                 }
             }
-            
+
+            // check for negative cycles
+            let mut negative_cycle = false;
+            for (u, v, w) in &self.edges {
+                if dist[*u] != i32::max_value() && dist[*u] + *w < dist[*v] {
+                    panic!("Negative weight cycle detected");
+                }
+            }
+
             // return the distances from source to every other vertex
                 dist
            
@@ -57,7 +65,7 @@ pub mod bellmanford {
         //read the number of vertices and source from the console
         let mut vertex = String::new();
         let mut source = String::new();
-        println!("*******Bellman Ford**********");
+        println!("********Bellman Ford***********");
         println!("****************************************************");
         //get the number of vertices
         print!("Please Enter Number of Vertices : ");
