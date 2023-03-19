@@ -33,6 +33,20 @@ pub mod kosaraju {
                 .parse()
                 .expect("Invalid input for number of neighbors");
             buffer.clear();
+
+            //neighbors input for each vertex
+            let mut neighbors: Vec<usize> = Vec::new();
+            for j in 0..num_neighbors {
+                print!("Please enter the next neighbor for vertex {} : ", i);
+                let _ = stdout().flush();
+                stdin()
+                    .read_line(&mut buffer)
+                    .expect("Please Enter Valid number for next neighbor.");
+                let neighbor: usize = buffer.trim().parse().expect("Invalid input for neighbor");
+                buffer.clear();
+                neighbors.push(neighbor);
+            }
+            adj_list[i] = neighbors;
         }
     }
 }
