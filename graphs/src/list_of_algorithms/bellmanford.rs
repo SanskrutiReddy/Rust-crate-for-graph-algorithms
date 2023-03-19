@@ -8,10 +8,8 @@ pub mod bellmanford {
         dist: i32,
     }
     struct Graph {
-        //representation using edge list
-        edges : Vec<(usize, usize, i32)>, 
-        //total no of vertices
-        vertices: usize, 
+        edges : Vec<(usize, usize, i32)>, //representation using edge list
+        vertices: usize, //total no of vertices
     }
 
     impl Ord for Node {
@@ -34,7 +32,23 @@ pub mod bellmanford {
         }
         // Bellman-Ford algorithm
         fn bellman_ford(&self, src: usize) -> Vec<i32> {
-             //implementation of bellmanford
+            let mut dist = vec![i32::max_value(); self.vertices]; // initialize all distances to max value
+            dist[src] = 0; // initialize distance from source vertex to the source as 0
+
+            // loop for (vertices - 1) times
+            for _ in 0..self.vertices - 1 {
+                //For every edge (u, v) with weight w, relax the edge
+                for (u, v, w) in &self.edges {
+                    if dist[*u] != i32::max_value() && dist[*u] + *w < dist[*v] {
+                        //relaxing the distances
+                        dist[*v] = dist[*u] + *w;
+                    }
+                }
+            }
+            
+            // return the distances from source to every other vertex
+                dist
+           
         }
 
     }   
@@ -43,7 +57,7 @@ pub mod bellmanford {
         //read the number of vertices and source from the console
         let mut vertex = String::new();
         let mut source = String::new();
-        println!("********Bellman Ford***********");
+        println!("*******Bellman Ford**********");
         println!("****************************************************");
         //get the number of vertices
         print!("Please Enter Number of Vertices : ");
