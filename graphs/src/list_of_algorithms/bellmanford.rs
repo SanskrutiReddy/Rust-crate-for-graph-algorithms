@@ -45,6 +45,7 @@ pub mod bellmanford {
                     }
                 }
             }
+
             // check for negative cycles
             let mut negative_cycle = false;
             for (u, v, w) in &self.edges {
@@ -52,6 +53,7 @@ pub mod bellmanford {
                     panic!("Negative weight cycle detected");
                 }
             }
+
             // return the distances from source to every other vertex
                 dist
            
