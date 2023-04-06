@@ -3,6 +3,15 @@ pub mod kosaraju {
         io::{stdin, stdout, Write},
     };
 
+    fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>){
+        // Creating a reversed graph
+        let mut adj_list_reversed = vec![Vec::new(); adj_list.len()]; //creating empty adjacency list for the reversed graph
+        for (u, e) in adj_list.iter().enumerate() { //iterating through each vertex
+            for &v in e { //iterating through each neighbor adjacent to u
+                adj_list_reversed[v].push(u); //adding each vertex to the neighboring list in reversed graph
+            }
+        }
+    }
     pub fn kosaraju() {
         println!("******Kosaraju Algorithm*******");
         println!("******************");
@@ -48,5 +57,9 @@ pub mod kosaraju {
             }
             adj_list[i] = neighbors;
         }
+
+        // Call the kosaraju function with the adjacency list
+        kosaraju_algorithm(&adj_list);
+
     }
 }
