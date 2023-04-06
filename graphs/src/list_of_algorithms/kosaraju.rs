@@ -1,6 +1,6 @@
 pub mod kosaraju {
     use std::{
-        io::{stdin, stdout, Write},
+        io::{stdin, stdout, Write}, collections::VecDeque,
     };
 
     fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>){
@@ -10,6 +10,29 @@ pub mod kosaraju {
             for &v in e { //iterating through each neighbor adjacent to u
                 adj_list_reversed[v].push(u); //adding each vertex to the neighboring list in reversed graph
             }
+        }
+
+        let mut visited = vec![false; adj_list.len()];
+        let mut order = VecDeque::new();
+        for u in 0..adj_list.len() {
+            if !visited[u] {
+                dfs_reversed(u, &adj_list_reversed, &mut visited, &mut order);
+            }
+        }
+
+        fn dfs_reversed(
+            u: usize,
+            adj_list: &Vec<Vec<usize>>,
+            visited: &mut Vec<bool>,
+            order: &mut VecDeque<usize>,
+        ) {
+            visited[u] = true;
+            for &v in &adj_list[u] {
+                if !visited[v] {
+                    dfs_reversed(v, adj_list, visited, order);
+                }
+            }
+            order.push_front(u);
         }
     }
     pub fn kosaraju() {
@@ -45,7 +68,7 @@ pub mod kosaraju {
 
             //neighbors input for each vertex
             let mut neighbors: Vec<usize> = Vec::new();
-            for j in 0..num_neighbors {
+            for _j in 0..num_neighbors {
                 print!("Please enter the next neighbor for vertex {} : ", i);
                 let _ = stdout().flush();
                 stdin()
