@@ -6,8 +6,10 @@ pub mod kosaraju {
     fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>){
         // Creating a reversed graph
         let mut adj_list_reversed = vec![Vec::new(); adj_list.len()]; //creating empty adjacency list for the reversed graph
-        for (u, e) in adj_list.iter().enumerate() { //iterating through each vertex
-            for &v in e { //iterating through each neighbor adjacent to u
+        for (u, e) in adj_list.iter().enumerate() {
+            //iterating through each vertex
+            for &v in e {
+                //iterating through each neighbor adjacent to u
                 adj_list_reversed[v].push(u); //adding each vertex to the neighboring list in reversed graph
             }
         }
@@ -20,12 +22,7 @@ pub mod kosaraju {
             }
         }
 
-        fn dfs_reversed(
-            u: usize,
-            adj_list: &Vec<Vec<usize>>,
-            visited: &mut Vec<bool>,
-            order: &mut VecDeque<usize>,
-        ) {
+        fn dfs_reversed(u: usize, adj_list: &Vec<Vec<usize>>, visited: &mut Vec<bool>, order: &mut VecDeque<usize>,) {
             visited[u] = true;
             for &v in &adj_list[u] {
                 if !visited[v] {
@@ -34,6 +31,18 @@ pub mod kosaraju {
             }
             order.push_front(u);
         }
+
+        //perform DFS on the graph obtained above
+        let mut visited = vec![false; adj_list.len()];
+        let mut list_of_scc = Vec::new(); //to store strongly connected components
+        while let Some(u) = order.pop_front() {
+            if !visited[u] {
+                let mut scc = Vec::new(); //to store nodes in the current SCC   
+                dfs(u, adj_list, &mut visited, &mut scc);
+                list_of_scc.push(scc); 
+            }
+        }
+
     }
     pub fn kosaraju() {
         println!("******Kosaraju Algorithm*******");
@@ -42,7 +51,7 @@ pub mod kosaraju {
 
         // Read the number of vertices from the user
         print!("Please Enter Number of Vertices : ");
-        let _= stdout().flush();
+        let _ = stdout().flush();
         stdin()
             .read_line(&mut buffer)
             .expect("Please Enter Valid number for vertices.");
@@ -83,6 +92,6 @@ pub mod kosaraju {
 
         // Call the kosaraju function with the adjacency list
         kosaraju_algorithm(&adj_list);
-
+        
     }
 }
