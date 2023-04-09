@@ -3,7 +3,7 @@ pub mod kosaraju {
         io::{stdin, stdout, Write}, collections::VecDeque,
     };
 
-    fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>){
+    fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>) -> Vec<Vec<usize>>{
         // Creating a reversed graph
         let mut adj_list_reversed = vec![Vec::new(); adj_list.len()]; //creating empty adjacency list for the reversed graph
         for (u, e) in adj_list.iter().enumerate() {
@@ -42,6 +42,17 @@ pub mod kosaraju {
                 list_of_scc.push(scc); 
             }
         }
+        fn dfs(u: usize, adj_list: &Vec<Vec<usize>>, visited: &mut Vec<bool>, scc: &mut Vec<usize>) {
+            visited[u] = true;
+            scc.push(u);
+            for &v in &adj_list[u] {
+                if !visited[v] {
+                    dfs(v, adj_list, visited, scc);
+                }
+            }
+        }
+
+        list_of_scc
 
     }
     pub fn kosaraju() {
@@ -91,7 +102,9 @@ pub mod kosaraju {
         }
 
         // Call the kosaraju function with the adjacency list
-        kosaraju_algorithm(&adj_list);
+        let res = kosaraju_algorithm(&adj_list);
+        println!("******************");
+        println!("{:?}",res);
         
     }
 }
