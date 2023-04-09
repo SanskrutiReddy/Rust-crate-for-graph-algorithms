@@ -1,9 +1,7 @@
 pub mod dfs {
-<<<<<<< Updated upstream
     pub fn dfs() {
         println!("DFS goes here ");
-=======
-    
+
     use std::{io::{stdin, stdout, Write}, collections::HashSet};
     use std::usize;
 
@@ -89,6 +87,5 @@ pub mod dfs {
         }
         return g;
         //return graph in the form containing vertices of the
->>>>>>> Stashed changes
     }
 }
