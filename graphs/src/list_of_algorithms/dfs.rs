@@ -1,79 +1,60 @@
 pub mod dfs {
     
-    use std::{io::{stdin, stdout, Write}, collections::{HashSet, BinaryHeap}, cmp::Ordering};
+    use std::{io::{stdin, stdout, Write}, collections::HashSet};
     use std::usize;
-    #[derive(Clone, Eq, PartialEq, PartialOrd)]
-    struct Node {
-        vertex: usize,
-        dist: i32,
-    }
+
     struct Graph {
-        edges : Vec<(usize, usize, i32)>, //representation using edge list
+        edges : Vec<Vec<usize>>, //representation using adjacency list
         vertices: usize, //total no of vertices
     }
 
-    impl Ord for Node {
-        fn cmp(&self, other: &Self) -> Ordering {
-            other.dist.cmp(&self.dist)
-        }
-    }
-    
     impl Graph {
         fn new(vertices: usize) -> Self {
             Graph {
-                edges: Vec::new(),
+                edges: vec![Vec::new(); vertices],
                 vertices,
             }
         }
-    
-        //Adding edges to the graph
-        fn add_edge(&mut self, u: usize, v: usize, w: i32) {
-            self.edges.push((u, v, w));
-        }
-        // dfs algorithm
-        fn dfs() {
-           
-        }
 
+        
     }   
+
     pub fn dfs() 
     {
-        //read the number of vertices and source from the console
+        //read the number of vertices from the console
         let mut vertex = String::new();
-        let mut source = String::new();
-        println!("********Depth First Search***********");
+        println!("*******DFS Traversal**********");
         println!("****************************************************");
         //get the number of vertices
         print!("Please Enter Number of Vertices : ");
         let _= stdout().flush();
         stdin().read_line(&mut vertex).expect("Enter valid number of vertices");
         let vertices: usize = vertex.trim().parse().expect("Invalid input");
-        //get the source vertex
-        print!("Enter Source Vertex : ");
-        let _= stdout().flush();
-        stdin().read_line(&mut source).expect("Enter valid source vertex ");
-        let source: usize = source.trim().parse().expect("Invalid input for source");
         //get number of edges in the graph
         let mut n_edges = String::new();
         print!("Please Enter Number of edges in the graph : ");
         let _= stdout().flush();
         stdin().read_line(&mut n_edges).expect("Enter Valid Input");
         let n_edges: i32 = n_edges.trim().parse().expect("Invalid input for source");
-        //assign the weights to each edge from the console
-        let e = add_weights(vertices, source, n_edges);
-        //call Depth First Search implementation
+        //assign the vertices to each edge from the console
+        let g = add_edges(vertices, n_edges);
+        //get the source vertex
+        let mut source = String::new();
+        print!("Enter Source Vertex : ");
+        let _= stdout().flush();
+        stdin().read_line(&mut source).expect("Enter valid source vertex ");
+        let source: usize = source.trim().parse().expect("Invalid input for source");
         
-        //print the distances from the source vertex
     }
-     //to return the weights of each branch as a graph containing source,destination and weight
-     fn add_weights(vertices: usize, source: usize, edges: i32) -> Graph
+
+    //to return the vertices of each edge as a graph
+    fn add_edges(vertices: usize, edges: i32) -> Graph
     {   //intialize a new graph with the required number of vertices
         let mut g = Graph::new(vertices);
         for i in 0..(edges)
-        {   //intialize source,destination and weights
+        {   //intialize source and destination
             let mut s = String::new();
             let mut d = String::new();
-            let mut w = String::new();
             //get the source
             print!("Source : ");
             let _= stdout().flush();
@@ -84,15 +65,11 @@ pub mod dfs {
             let _= stdout().flush();
             stdin().read_line(&mut d).expect("Please Enter Valid Input for .");
             let d: usize = d.trim().parse().expect("Invalid input for source");
-            //get the weight
-            print!("Weight : ");
-            let _= stdout().flush();
-            stdin().read_line(&mut w).expect("Please Enter Valid Input for .");
-            let w: i32 = w.trim().parse().expect("Invalid input for source");
-            // add edge with source,destination and weight
-            g.add_edge(s, d, w);
-         }
+            // add edge with source and destination
+            g.add_edge(s, d);
+            g.add_edge(d, s); // for undirected graphs
+        }
         return g;
-         //return graph in the form containing source,destination and weight of the edge
+        //return graph in the form containing vertices of the
     }
 }
