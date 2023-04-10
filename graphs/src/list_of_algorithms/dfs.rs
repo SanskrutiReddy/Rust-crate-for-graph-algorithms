@@ -1,6 +1,4 @@
 pub mod dfs {
-    pub fn dfs() {
-        println!("DFS goes here ");
 
     use std::{io::{stdin, stdout, Write}, collections::HashSet};
     use std::usize;
@@ -18,10 +16,12 @@ pub mod dfs {
             }
         }
 
+        //Adding edges to the graph
         fn add_edge(&mut self, u: usize, v: usize) {
             self.edges[u].push(v);
         }
 
+        //DFS algorithm
         fn dfs(&self, u: usize, visited: &mut HashSet<usize>) {
             visited.insert(u);
             println!("Visited node: {}", u);
@@ -38,7 +38,7 @@ pub mod dfs {
     {
         //read the number of vertices from the console
         let mut vertex = String::new();
-        println!("*****DFS Traversal********");
+        println!("******DFS Traversal*********");
         println!("****************************************************");
         //get the number of vertices
         print!("Please Enter Number of Vertices : ");
@@ -59,6 +59,7 @@ pub mod dfs {
         let _= stdout().flush();
         stdin().read_line(&mut source).expect("Enter valid source vertex ");
         let source: usize = source.trim().parse().expect("Invalid input for source");
+        //call DFS implementation
         let mut visited = HashSet::new();
         g.dfs(source, &mut visited);
     }
