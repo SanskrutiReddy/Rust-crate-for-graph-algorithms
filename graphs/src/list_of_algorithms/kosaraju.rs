@@ -4,7 +4,34 @@ pub mod kosaraju {
         io::{stdin, stdout, Write}, collections::VecDeque,
     };
 
-    fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>) -> Vec<Vec<usize>>{
+
+/// The Kosaraju's algorithm is used to find strongly connected components.
+/// Given a directed graph represented as an adjacency list (Vec[Vec[]]), returns a vector of strongly connected components.
+///
+/// # Arguments
+///
+/// * `adj_list` - A directed graph represented as an adjacency list. Each vector in the adjacency list represents the vertices that the corresponding vertex has an outgoing edge to.
+/// 
+/// # Returns
+/// 
+/// * `list_of_scc` - A list of stringly connected components which are internall in sorted order represented as Vec[Vec[]].
+/// 
+/// # Example
+/// ```
+/// use kosaraju::kosaraju_algorithm;
+///
+/// let adj_list = vec![
+///     vec![1],       // Node 0 has edge to node 1
+///     vec![2],       // Node 1 has edge to node 2
+///     vec![0, 3],    // Node 2 has edges to nodes 0 and 3
+///     vec![4],       // Node 3 has edge to node 4
+///     vec![5],       // Node 4 has edge to node 5
+///     vec![3],       // Node 5 has edge to node 3
+/// ];
+/// 
+/// kosaraju_algorithm(&adj_list);
+/// 
+    pub fn kosaraju_algorithm(adj_list: &Vec<Vec<usize>>) -> Vec<Vec<usize>>{
         // Creating a reversed graph
         let mut adj_list_reversed = vec![Vec::new(); adj_list.len()]; //Creating empty adjacency list for the reversed graph
         for (u, e) in adj_list.iter().enumerate() {
@@ -40,9 +67,12 @@ pub mod kosaraju {
             if !visited[u] { //If the vertex is unvisited, it belongs to a new SCC
                 let mut scc = Vec::new(); //To store nodes in the current SCC   
                 dfs(u, adj_list, &mut visited, &mut scc); //Call dfs function for unvisited vertices
+                scc.sort(); // Sort the SCC
                 list_of_scc.push(scc); //Adding nodes in the current SCC 
             }
         }
+        list_of_scc.sort(); //Sorting the SCC
+
         fn dfs(u: usize, adj_list: &Vec<Vec<usize>>, visited: &mut Vec<bool>, scc: &mut Vec<usize>) { //DFS function for the original graph
             visited[u] = true; //Marking the vertex as visited
             scc.push(u); //Adding the vertex to the SCC
@@ -56,6 +86,41 @@ pub mod kosaraju {
         list_of_scc //Returning the list of SCCs
 
     }
+
+/// Performs Kosaraju's algorithm on a given directed graph represented as an adjacency list.
+/// Prints a vector of vectors, where each inner vector contains the nodes of a strongly connected component in sorted order.
+/// 
+/// # Arguments
+/// 
+/// * `adj_list` - A vector of vectors representing the adjacency list of the directed graph.
+/// 
+/// # Output
+/// 
+/// Prints Strongly connected components(SCC) of the graph
+/// 
+/// # Sample input
+/// ```
+/// Please Enter Number of Vertices : 6
+/// Please enter the number of neighbors for vertex 0 : 1
+/// Please enter the next neighbor for vertex 0 : 1
+/// Please enter the number of neighbors for vertex 1 : 1
+/// Please enter the next neighbor for vertex 1 : 2
+/// Please enter the number of neighbors for vertex 2 : 2
+/// Please enter the next neighbor for vertex 2 : 0
+/// Please enter the next neighbor for vertex 2 : 3
+/// Please enter the number of neighbors for vertex 3 : 1
+/// Please enter the next neighbor for vertex 3 : 4
+/// Please enter the number of neighbors for vertex 4 : 1
+/// Please enter the next neighbor for vertex 4 : 5
+/// Please enter the number of neighbors for vertex 5 : 1
+/// Please enter the next neighbor for vertex 5 : 3
+/// 
+/// ```
+/// # Sample output
+/// ```
+/// The strongly connected components are:
+/// [[0, 1, 2], [3, 4, 5]]
+
     pub fn kosaraju() {
         println!("******Kosaraju Algorithm*******");
         println!("******************");
@@ -105,7 +170,78 @@ pub mod kosaraju {
         // Call the kosaraju function with the adjacency list
         let res = kosaraju_algorithm(&adj_list);
         println!("******************");
-        println!("{:?}",res); // Printing the result of kosaraju algorithm
+        println!("The strongly connected components are:");
+        println!("{:?}", res); // Printing the result of kosaraju algorithm
         
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::kosaraju::kosaraju_algorithm;
+
+    #[test]
+    fn test_kosaraju_algorithm1() {
+        let adj_list = vec![vec![1],
+            vec![2],
+            vec![3, 4],
+            vec![0],
+            vec![5],
+            vec![6],
+            vec![4, 7],
+            vec![]
+        ];
+    
+        let expected_result = vec![vec![0, 1, 2, 3],
+            vec![4, 5, 6],
+            vec![7],
+        ];
+
+        let result = kosaraju_algorithm(&adj_list);
+    
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_kosaraju_algorithm2() {
+        let adj_list = vec![vec![2, 3],
+            vec![0],
+            vec![1],
+            vec![4],
+            vec![],
+        ];
+    
+        let expected_result = vec![vec![0, 1, 2],
+            vec![3],
+            vec![4],
+        ];
+
+        let result = kosaraju_algorithm(&adj_list);
+    
+        assert_eq!(result, expected_result);
+    }
+
+    #[test]
+    fn test_kosaraju_algorithm3() { //test for disconnected graph
+        let adj_list = vec![vec![1],
+            vec![2],
+            vec![0, 3],
+            vec![4],
+            vec![3],
+            vec![],
+            vec![7],
+            vec![5, 6],
+        ];
+    
+        let expected_result = vec![vec![0, 1, 2],
+            vec![3, 4],
+            vec![5],
+            vec![6, 7],
+        ];
+
+        let result = kosaraju_algorithm(&adj_list);
+    
+        assert_eq!(result, expected_result);
+    }
+
 }
