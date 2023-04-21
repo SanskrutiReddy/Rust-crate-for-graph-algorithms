@@ -1,17 +1,17 @@
 pub mod bellmanford {
-    
+    //Importng necessary libraries
     use std::{io::{stdin, stdout, Write}, collections::{HashSet, BinaryHeap}, cmp::Ordering};
     use std::usize;
     #[derive(Clone, Eq, PartialEq, PartialOrd)]
-    struct Node {
+    struct Node { // Define new struct called Node which represent each Node of the graph
         vertex: usize,
-        dist: i32,
+        dist: i32, 
     }
-    struct Graph {
+    struct Graph { // struct to represent entire graph
         edges : Vec<(usize, usize, i32)>, //representation using edge list
         vertices: usize, //total no of vertices
     }
-
+    // Custom implementation of the Ord trait for the Node struct, which used to order nodes by distance
     impl Ord for Node {
         fn cmp(&self, other: &Self) -> Ordering {
             other.dist.cmp(&self.dist)
@@ -19,7 +19,7 @@ pub mod bellmanford {
     }
     
     impl Graph {
-        fn new(vertices: usize) -> Self {
+        fn new(vertices: usize) -> Self { // Constructor for new graph with the given number of vertices
             Graph {
                 edges: Vec::new(),
                 vertices,
