@@ -1,5 +1,5 @@
 pub mod dfs {
-
+    //Importng necessary libraries
     use std::{io::{stdin, stdout, Write}, collections::HashSet};
     use std::usize;
 
@@ -9,9 +9,10 @@ pub mod dfs {
     }
 
     impl Graph {
+        // Constructor method for creating a new graph
         fn new(vertices: usize) -> Self {
             Graph {
-                edges: vec![Vec::new(); vertices],
+                edges: vec![Vec::new(); vertices], // Initializing adjacency list with empty vectors with size equal to vertices number
                 vertices,
             }
         }
@@ -23,10 +24,10 @@ pub mod dfs {
 
         //DFS algorithm
         fn dfs(&self, u: usize, visited: &mut HashSet<usize>) {
-            visited.insert(u);
+            visited.insert(u);  // Marking the node as visited and printing the node in the next line
             println!("Visited node: {}", u);
 
-            for &v in &self.edges[u] {
+            for &v in &self.edges[u] { // Recursively calling dfs for all unvisited neighbours of the node
                 if !visited.contains(&v) {
                     self.dfs(v, visited);
                 }
@@ -68,7 +69,7 @@ pub mod dfs {
     fn add_edges(vertices: usize, edges: i32) -> Graph
     {   //intialize a new graph with the required number of vertices
         let mut g = Graph::new(vertices);
-        for i in 0..(edges)
+        for _i in 0..(edges)
         {   //intialize source and destination
             let mut s = String::new();
             let mut d = String::new();
