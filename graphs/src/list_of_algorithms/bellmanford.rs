@@ -1,19 +1,20 @@
 pub mod bellmanford {
-    
+    /// Importng necessary libraries
     use std::{io::{stdin, stdout, Write}, collections::{HashSet, BinaryHeap}, cmp::Ordering};
     use std::usize;
     #[derive(Clone, Eq, PartialEq, PartialOrd)]
-    struct Node {
+    struct Node { /// Define new struct called Node which represent each Node of the graph
         vertex: usize,
-        dist: i32,
+        dist: i32, 
     }
     struct Graph {
-        ///representation using edge list
+        /// representation using edge list
         edges : Vec<(usize, usize, i32)>, 
-        ///total no of vertices
+        /// total no of vertices
         vertices: usize, 
-    }
 
+    }
+    // Custom implementation of the Ord trait for the Node struct, which used to order nodes by distance
     impl Ord for Node {
         fn cmp(&self, other: &Self) -> Ordering {
             other.dist.cmp(&self.dist)
@@ -21,34 +22,34 @@ pub mod bellmanford {
     }
     
     impl Graph {
-        fn new(vertices: usize) -> Self {
+        fn new(vertices: usize) -> Self { /// Constructor for new graph with the given number of vertices
             Graph {
                 edges: Vec::new(),
                 vertices,
             }
         }
     
-        ///Adding edges to the graph
+        /// Adding edges to the graph
         fn add_edge(&mut self, u: usize, v: usize, w: i32) {
             self.edges.push((u, v, w));
         }
         /// Bellman-Ford algorithm
         fn bellman_ford(&self, src: usize) -> Vec<i32> {
-            let mut dist = vec![i32::max_value(); self.vertices]; // initialize all distances to max value
+            let mut dist = vec![i32::max_value(); self.vertices]; /// initialize all distances to max value
             dist[src] = 0; /// initialize distance from source vertex to the source as 0
 
             /// loop for (vertices - 1) times
             for _ in 0..self.vertices - 1 {
-                ///For every edge (u, v) with weight w, relax the edge
+                /// For every edge (u, v) with weight w, relax the edge
                 for (u, v, w) in &self.edges {
-                    ///relaxing the distances
+                    /// relaxing the distances
                     if dist[*u] != i32::max_value() && dist[*u] + *w < dist[*v] {
                         dist[*v] = dist[*u] + *w;
                     }
                 }
             }
 
-            // check for negative cycles
+            /// check for negative cycles
             let mut negative_cycle = false;
             for (u, v, w) in &self.edges {
                 if dist[*u] != i32::max_value() && dist[*u] + *w < dist[*v] {
