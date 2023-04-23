@@ -14,7 +14,7 @@ pub mod kosaraju {
 /// 
 /// # Returns
 /// 
-/// * `list_of_scc` - A list of stringly connected components which are internall in sorted order represented as Vec[Vec[]].
+/// * `list_of_scc` - A list of strongly connected components which are internally in sorted order represented as Vec[Vec[]].
 /// 
 /// # Example
 /// ```
@@ -90,11 +90,11 @@ pub mod kosaraju {
 /// Performs Kosaraju's algorithm on a given directed graph represented as an adjacency list.
 /// Prints a vector of vectors, where each inner vector contains the nodes of a strongly connected component in sorted order.
 /// 
-/// # Arguments
+/// # Input
 /// 
 /// * `Number of vertices` - Number of vertices in the graph. When this is 0, the output will be an empty vector.
-/// * `Number of neighbors for each vertex
-/// * `Next neighbor for each vertex
+/// * `Number of neighbors for each vertex`
+/// * `Next neighbor for each vertex`
 /// 
 /// # Output
 /// 
