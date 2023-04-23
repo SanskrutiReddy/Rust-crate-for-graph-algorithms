@@ -1,20 +1,20 @@
 pub mod bellmanford {
-    /// Importng necessary libraries
+    ///Importng necessary libraries
     use std::{io::{stdin, stdout, Write}, collections::{HashSet, BinaryHeap}, cmp::Ordering};
     use std::usize;
     #[derive(Clone, Eq, PartialEq, PartialOrd)]
-    struct Node { /// Define new struct called Node which represent each Node of the graph
+    struct Node { ///Define new struct called Node which represent each Node of the graph
         vertex: usize,
         dist: i32, 
     }
-    struct Graph {
-        /// representation using edge list
+    pub struct Graph {
+        ///representation using edge list
         edges : Vec<(usize, usize, i32)>, 
-        /// total no of vertices
+        ///total no of vertices
         vertices: usize, 
 
     }
-    // Custom implementation of the Ord trait for the Node struct, which used to order nodes by distance
+    ///Custom implementation of the Ord trait for the Node struct, which used to order nodes by distance
     impl Ord for Node {
         fn cmp(&self, other: &Self) -> Ordering {
             other.dist.cmp(&self.dist)
@@ -22,34 +22,35 @@ pub mod bellmanford {
     }
     
     impl Graph {
-        fn new(vertices: usize) -> Self { /// Constructor for new graph with the given number of vertices
+        pub fn new(vertices: usize) -> Self { ///Constructor for new graph with the given number of vertices
             Graph {
                 edges: Vec::new(),
                 vertices,
             }
         }
     
-        /// Adding edges to the graph
-        fn add_edge(&mut self, u: usize, v: usize, w: i32) {
+        ///Adding edges to the graph
+       pub fn add_edge(&mut self, u: usize, v: usize, w: i32) {
             self.edges.push((u, v, w));
         }
-        /// Bellman-Ford algorithm
-        fn bellman_ford(&self, src: usize) -> Vec<i32> {
-            let mut dist = vec![i32::max_value(); self.vertices]; /// initialize all distances to max value
-            dist[src] = 0; /// initialize distance from source vertex to the source as 0
+        ///Bellman-Ford algorithm
+       pub  fn bellman_ford(&self, src: usize) -> Vec<i32> {
+            ///initialize all distances to max value
+            let mut dist = vec![i32::max_value(); self.vertices]; 
+            dist[src] = 0; ///initialize distance from source vertex to the source as 0
 
-            /// loop for (vertices - 1) times
-            for _ in 0..self.vertices - 1 {
-                /// For every edge (u, v) with weight w, relax the edge
+            ///loop for (vertices - 1) times
+            for _ in 0..self.vertices+1 {
+                ///For every edge (u, v) with weight w, relax the edge
                 for (u, v, w) in &self.edges {
-                    /// relaxing the distances
+                    ///relaxing the distances
                     if dist[*u] != i32::max_value() && dist[*u] + *w < dist[*v] {
                         dist[*v] = dist[*u] + *w;
                     }
                 }
             }
 
-            /// check for negative cycles
+            ///check for negative cycles
             let mut negative_cycle = false;
             for (u, v, w) in &self.edges {
                 if dist[*u] != i32::max_value() && dist[*u] + *w < dist[*v] {
@@ -57,7 +58,7 @@ pub mod bellmanford {
                 }
             }
 
-            /// return the distances from source to every other vertex
+            ///return the distances from source to every other vertex
                 dist
            
         }
@@ -85,7 +86,11 @@ pub mod bellmanford {
         print!("Please Enter Number of edges in the graph : ");
         let _= stdout().flush();
         stdin().read_line(&mut n_edges).expect("Enter Valid Input");
-        let n_edges: i32 = n_edges.trim().parse().expect("Invalid input for source");
+        let n_edges: i32 = n_edges.trim().parse().unwrap_or_else(|_| {
+            println!("Invalid input for number of edges, using default value of 0");
+            0
+        });
+        
         ///assign the weights to each edge from the console
         let e = add_weights(vertices, source, n_edges);
         ///call bellman_ford implementation
@@ -96,6 +101,7 @@ pub mod bellmanford {
             println!("Distance from vertex {} to vertex {} is {}", source, v, d);
         }
     }
+    
      ///to return the weights of each branch as a graph containing source,destination and weight
      fn add_weights(vertices: usize, source: usize, edges: i32) -> Graph
     {   ///intialize a new graph with the required number of vertices
@@ -120,10 +126,55 @@ pub mod bellmanford {
             let _= stdout().flush();
             stdin().read_line(&mut w).expect("Please Enter Valid Input for .");
             let w: i32 = w.trim().parse().expect("Invalid input for source");
-            /// add edge with source,destination and weight
+            ///add edge with source,destination and weight
             g.add_edge(s, d, w);
          }
          ///return graph in the form containing source,destination and weight of the edge
         return g;
     }
 }
+ #[cfg(test)]
+    mod tests {
+        use super::bellmanford::bellmanford;
+        use crate::list_of_algorithms::bellmanford::bellmanford::Graph;
+        #[test]
+        fn test_bellman_ford() {
+            let mut g = Graph::new(5);
+            g.add_edge(0, 1, 5);
+            g.add_edge(0, 2, 3);
+            g.add_edge(1, 2, 2);
+            g.add_edge(1, 3, 6);
+            g.add_edge(2, 3, 7);
+            g.add_edge(3, 4, 1);
+    
+            let dist = g.bellman_ford(0);
+            assert_eq!(dist, vec![0, 5, 3, 10, 11]);
+        }
+        #[test]
+        fn test_bellman_ford_edge() {
+            let mut g = Graph::new(5);
+            g.add_edge(0, 1, -1);
+            g.add_edge(0, 2, 4);
+            g.add_edge(1, 2, 3);
+            g.add_edge(1, 3, 2);
+            g.add_edge(1, 4, 2);
+            g.add_edge(3, 2, 5);
+            g.add_edge(3,1,1);
+            g.add_edge(4,3,-3);
+    
+            let dist = g.bellman_ford(0);
+            assert_eq!(dist, vec![0, -1, 2, -2, 1]);
+        }
+        
+        #[test]
+        #[should_panic(expected = "Negative weight cycle detected")]
+        fn test_negative_cycle() {
+            let mut g = Graph::new(3);
+            g.add_edge(0, 1, 1);
+            g.add_edge(1, 2, -5);
+            g.add_edge(2, 0, 2);
+    
+            let _dist = g.bellman_ford(0);
+        }
+    }
+    
