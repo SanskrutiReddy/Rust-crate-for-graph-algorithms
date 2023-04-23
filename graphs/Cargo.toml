@@ -1,6 +1,6 @@
 [package]
 name = "graph-algorithms"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Sanskruti Reddy Donthi", "Shanwaz Waqar Kotekanti", "Abhishek Cherukuru", "Pavan Bodanki"]
 description = "A crate for 5 graph algorithms - DIJKSTRA'S, BFS, DFS, KOSARAJU'S and BELLMAN FORD ALGORITHM"
