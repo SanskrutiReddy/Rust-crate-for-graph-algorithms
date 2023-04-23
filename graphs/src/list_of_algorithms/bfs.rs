@@ -31,7 +31,7 @@ pub mod bfs {
         /// # Arguments
         ///
         /// * adj_list - A graph represented as an adjacency list. Each vector in the adjacency list represents the vertices that the corresponding vertex has an outgoing edge to.
-        /// * start_vertex - The index of the vertex to start the Breadth-First Search from.
+        /// * start - The index of the vertex to start the Breadth-First Search from.
         ///
         /// # Returns
         ///
@@ -88,10 +88,11 @@ pub mod bfs {
     /// Prints a graph, where each inner vector contains the nodes of a strongly connected component in sorted order.
     /// 
     /// # Input
-    /// 
-    /// * `Number of vertices` - Number of vertices in the graph. When this is 0, the output will be an empty vector.
-    /// * `Number of neighbors for each vertex`
-    /// * `Next neighbor for each vertex`
+    /// * `no_of_vertices` - Input the number of vertices in the graph
+    /// * `no_of_edges` - Input the number of edges in the graph
+    /// * `source` - The source vertex of an edge in the graph
+    /// * `destination` - The destination of an edge in the graph
+    /// * `Start_vertex` - The start vertex where BFS algorithm starts from
     /// 
     /// # Output
     /// 
