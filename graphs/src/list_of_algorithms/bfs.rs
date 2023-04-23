@@ -130,6 +130,13 @@ mod tests {
         ///Check that the visited nodes match the expected set
         let expected= vec![0,1,2,3,4];
         assert_eq!(visited, expected);
+        ///check that all the nodes are visited
+        assert!(visited.contains(&0));
+        assert!(visited.contains(&1));
+        assert!(visited.contains(&2));
+        assert!(visited.contains(&3));
+        assert_eq!(visited.len(), 5);
+
     }
 
     #[test]
@@ -151,6 +158,12 @@ mod tests {
     ///Check that the visited nodes match the expected set
     let expected= vec![2, 0, 1, 3];
     assert_eq!(visited, expected);
+    ///check that all the nodes are visited
+    assert!(visited.contains(&0));
+    assert!(visited.contains(&1));
+    assert!(visited.contains(&2));
+    assert!(visited.contains(&3));
+    assert_eq!(visited.len(), 4);
 }
 
 }
