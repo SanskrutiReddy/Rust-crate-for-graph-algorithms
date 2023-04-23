@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["add_edges","To return the vertices of each edge as a graph"],["dfs","Performs Depth first search algorithm on a given directed graph represented as an adjacency list. Prints a graph, where the nodes of the graph are in the visited order."]],"struct":[["Graph","A graph data structure with adjacency list representation."]]};
