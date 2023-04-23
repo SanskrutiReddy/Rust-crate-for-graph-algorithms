@@ -81,13 +81,17 @@ pub mod dfs {
     /// Performs Depth first search algorithm on a given directed graph represented as an adjacency list.
     /// Prints a graph, where the nodes of the graph are in the visited order.
     /// 
-    /// # Arguments
-    /// 
-    /// * `adj_list` - A vector representing the adjacency list of the directed graph.
+    
+    /// # Input
+    /// * `no_of_vertices` - Input the number of vertices in the graph
+    /// * `no_of_edges` - Input the number of edges in the graph
+    /// * `source` - The source vertex of an edge in the graph
+    /// * `destination` - The destination of an edge in the graph
+    /// * `Start_vertex` - The start vertex where BFS algorithm starts from
     /// 
     /// # Output
     /// 
-    /// Prints the viist order of the graph
+    /// Prints the visit order of the graph
     /// 
     /// # Sample input
     /// ```
