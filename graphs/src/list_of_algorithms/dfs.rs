@@ -3,7 +3,7 @@ pub mod dfs {
     use std::{io::{stdin, stdout, Write}, collections::HashSet};
     use std::usize;
 
-    struct Graph {
+    pub struct Graph {
         ///representation using adjacency list
         edges : Vec<Vec<usize>>, 
         ///total no of vertices
@@ -12,7 +12,7 @@ pub mod dfs {
 
     impl Graph {
         // Constructor method for creating a new graph
-        fn new(vertices: usize) -> Self {
+        pub fn new(vertices: usize) -> Self {
             Graph {
                 edges: vec![Vec::new(); vertices], // Initializing adjacency list with empty vectors with size equal to vertices number
                 vertices,
@@ -21,21 +21,23 @@ pub mod dfs {
 
 
         ///Adding edges to the graph
-        fn add_edge(&mut self, u: usize, v: usize) {
+        pub fn add_edge(&mut self, u: usize, v: usize) {
             self.edges[u].push(v);
         }
 
         ///DFS algorithm
-        fn dfs(&self, u: usize, visited: &mut HashSet<usize>) {
+        pub fn d_fs(&self, u: usize, visited: &mut HashSet<usize>) -> Vec<usize> {
             visited.insert(u);
             println!("Visited node: {}", u);
-
+            let mut visited_nodes = vec![u];
+        
             for &v in &self.edges[u] {
-
                 if !visited.contains(&v) {
-                    self.dfs(v, visited);
+                    visited_nodes.extend(self.d_fs(v, visited));
                 }
             }
+        
+            visited_nodes
         }
     }   
 
@@ -68,11 +70,11 @@ pub mod dfs {
         ///call DFS implementation
 
         let mut visited = HashSet::new();
-        g.dfs(source, &mut visited);
+        g.d_fs(source, &mut visited);
     }
 
     ///to return the vertices of each edge as a graph
-    fn add_edges(vertices: usize, edges: i32) -> Graph
+    pub fn add_edges(vertices: usize, edges: i32) -> Graph
     {   ///intialize a new graph with the required number of vertices
         let mut g = Graph::new(vertices);
 
@@ -98,5 +100,51 @@ pub mod dfs {
         ///return graph in the form containing vertices of the
         return g;
     
+    }
+}
+#[cfg(test)]
+mod tests {
+    use super::dfs::*;
+    use std::collections::HashSet;
+
+    #[test]
+    fn test_dfs() {
+        let mut g = Graph::new(4);
+        g.add_edge(0, 1);
+        g.add_edge(0, 2);
+        g.add_edge(1, 2);
+        g.add_edge(2, 0);
+        g.add_edge(2, 3);
+        g.add_edge(3, 3);
+
+        let mut visited = HashSet::new();
+        let x = g.d_fs(2, &mut visited);
+        ///Check that the visited nodes match the expected set
+        let expected= vec![2, 0, 1, 3];
+        assert_eq!(x, expected);
+        assert!(visited.contains(&0));
+        assert!(visited.contains(&1));
+        assert!(visited.contains(&2));
+        assert!(visited.contains(&3));
+        assert_eq!(visited.len(), 4);
+    }
+    #[test]
+    fn test_dfs1() {
+        let mut g = Graph::new(5);
+        g.add_edge(0, 1);
+        g.add_edge(0, 2);
+        g.add_edge(1, 3);
+        g.add_edge(2, 4);
+
+        let mut visited = HashSet::new();
+        let x = g.d_fs(0, &mut visited);
+        ///Check that the visited nodes match the expected set
+        let expected= vec![0,1,3,2,4];
+        assert_eq!(x, expected);
+        assert!(visited.contains(&0));
+        assert!(visited.contains(&1));
+        assert!(visited.contains(&2));
+        assert!(visited.contains(&3));
+        assert_eq!(visited.len(), 5);
     }
 }
