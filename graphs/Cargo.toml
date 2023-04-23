@@ -5,6 +5,8 @@ edition = "2021"
 authors = ["Sanskruti Reddy Donthi", "Shanwaz Waqar Kotekanti", "Abhishek Cherukuru", "Pavan Bodanki"]
 description = "A crate for 5 graph algorithms - DIJKSTRA'S, BFS, DFS, KOSARAJU'S and BELLMAN FORD ALGORITHM"
 license = "MIT"
+repository = "https://github.com/SanskrutiReddy/Rust-crate-for-graph-algorithms"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
