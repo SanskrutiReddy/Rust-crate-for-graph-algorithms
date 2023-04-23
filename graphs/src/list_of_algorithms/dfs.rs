@@ -26,6 +26,7 @@ pub mod dfs {
         }
 
         ///DFS algorithm
+
         /// Performs a Depth-First Search on a given graph represented as an adjacency list and returns a vector of visited vertices in the order they were visited.
         ///
         /// # Arguments
@@ -61,6 +62,7 @@ pub mod dfs {
         ///
         /// assert_eq!(visited, vec![0, 1, 3, 6, 4, 2, 5, 7, 9, 8]);
         /// ```
+
         pub fn d_fs(&self, u: usize, visited: &mut HashSet<usize>) -> Vec<usize> {
             visited.insert(u);
             println!("Visited node: {}", u);
