@@ -26,6 +26,43 @@ pub mod dfs {
         }
 
         ///DFS algorithm
+
+        /// Performs a Depth-First Search on a given graph represented as an adjacency list and returns a vector of visited vertices in the order they were visited.
+        ///
+        /// # Arguments
+        ///
+        /// * `adj_list` - A graph represented as an adjacency list. Each vector in the adjacency list represents the vertices that the corresponding vertex has an outgoing edge to.
+        /// * `start_vertex` - The index of the vertex to start the Depth-First Search from.
+        ///
+        /// # Returns
+        ///
+        /// * `visited` - A vector of visited vertices in the order they were visited during the Depth-First Search.
+        ///
+        /// # Example
+        ///
+        /// ```
+        /// use depth_first_search::dfs;
+        ///
+        /// let adj_list = vec![
+        ///     vec![1, 2],    // Node 0 has edges to nodes 1 and 2
+        ///     vec![3, 4],    // Node 1 has edges to nodes 3 and 4
+        ///     vec![5],       // Node 2 has edge to node 5
+        ///     vec![6],       // Node 3 has edge to node 6
+        ///     vec![],        // Node 4 has no outgoing edges
+        ///     vec![7, 8],    // Node 5 has edges to nodes 7 and 8
+        ///     vec![],        // Node 6 has no outgoing edges
+        ///     vec![9],       // Node 7 has edge to node 9
+        ///     vec![],        // Node 8 has no outgoing edges
+        ///     vec![],        // Node 9 has no outgoing edges
+        /// ];
+        ///
+        /// let start_vertex = 0;
+        ///
+        /// let visited = dfs(&adj_list, start_vertex);
+        ///
+        /// assert_eq!(visited, vec![0, 1, 3, 6, 4, 2, 5, 7, 9, 8]);
+        /// ```
+
         pub fn d_fs(&self, u: usize, visited: &mut HashSet<usize>) -> Vec<usize> {
             visited.insert(u);
             println!("Visited node: {}", u);
@@ -41,6 +78,41 @@ pub mod dfs {
         }
     }   
 
+    /// Performs Depth first search algorithm on a given directed graph represented as an adjacency list.
+    /// Prints a graph, where the nodes of the graph are in the visited order.
+    /// 
+    /// # Arguments
+    /// 
+    /// * `adj_list` - A vector representing the adjacency list of the directed graph.
+    /// 
+    /// # Output
+    /// 
+    /// Prints the viist order of the graph
+    /// 
+    /// # Sample input
+    /// ```
+    /// Please Enter Number of Vertices : 5
+    ///Please Enter Number of edges in the graph : 5
+    ///Source : 0
+    ///Destination : 1
+    ///Source : 0
+    ///Destination : 2
+    ///Source : 0
+    ///Destination : 3
+    ///Source : 2
+    ///Destination : 1
+    ///Source : 2
+    ///Destination : 4
+    ///Enter Source Vertex : 0
+    /// ```
+    ///  # Sample output
+    /// ```
+    ///Visited node: 0
+    ///Visited node: 1
+    ///Visited node: 2
+    ///Visited node: 4
+    ///Visited node: 3
+    ///```
     pub fn dfs() 
     {
         ///read the number of vertices from the console
