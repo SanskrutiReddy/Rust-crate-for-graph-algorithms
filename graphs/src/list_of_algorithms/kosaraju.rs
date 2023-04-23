@@ -92,7 +92,9 @@ pub mod kosaraju {
 /// 
 /// # Arguments
 /// 
-/// * `adj_list` - A vector of vectors representing the adjacency list of the directed graph.
+/// * `Number of vertices` - Number of vertices in the graph. When this is 0, the output will be an empty vector.
+/// * `Number of neighbors for each vertex
+/// * `Next neighbor for each vertex
 /// 
 /// # Output
 /// 

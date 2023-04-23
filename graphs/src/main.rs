@@ -8,7 +8,23 @@ pub use crate::list_of_algorithms::{ // Using the algorithms from 'list_of_algor
     bfs::bfs::bfs
 };
 
-/// The below `main` function displays a list of different algorithms and allows the user to select one.
+/// The `main` function displays a list of different algorithms and allows the user to select one.
+/// 
+/// # Sample input
+/// ```
+/// Please Select Any One of the Algorithms Below:
+/// 1. Dijkstra’s algorithm
+/// 2. Bellman ford algorithm
+/// 3. Depth-First Search algorithm
+/// 4. Kosaraju’s algorithm
+/// 5. Breadth-First Search algorithm
+/// 6. Exit
+/// ******************
+/// Please Enter your choice (ex:1): 1
+/// ******************
+/// ******Dijkstras Algorithm*******
+/// ```
+/// After this you can continue entering the necessary inputs for the selected algorithm
 fn main() {
     let mut choice = String::new(); // Initializing an empty string to store user's input
     loop { // Running the loop until the user chooses to exit
