@@ -1,13 +1,17 @@
 pub mod dfs {
     //Importng necessary libraries
-    use std::{io::{stdin, stdout, Write}, collections::HashSet};
     use std::usize;
+    use std::{
+        collections::HashSet,
+        io::{stdin, stdout, Write},
+    };
 
+    /// A graph data structure with adjacency list representation.
     pub struct Graph {
-        ///representation using adjacency list
-        pub edges : Vec<Vec<usize>>, 
-        ///total no of vertices
-        pub vertices: usize, 
+        /// The edges of the graph stored as adjacency lists.
+        pub edges: Vec<Vec<usize>>,
+        /// The total number of vertices in the graph.
+        pub vertices: usize,
     }
 
     impl Graph {
@@ -19,14 +23,30 @@ pub mod dfs {
             }
         }
 
-
-        ///Adding edges to the graph
+        /// Adds an edge between two vertices in the graph.
+        ///
+        /// # Arguments
+        ///
+        /// * `u` - The index of the first vertex.
+        /// * `v` - The index of the second vertex.
+        ///
+        /// # Example
+        ///
+        /// ```
+        /// use my_crate::Graph;
+        ///
+        /// let mut graph = Graph::new(5);
+        ///
+        /// graph.add_edge(0, 1);
+        /// graph.add_edge(1, 2);
+        /// graph.add_edge(2, 3);
+        /// graph.add_edge(3, 4);
+        ///
         pub fn add_edge(&mut self, u: usize, v: usize) {
             self.edges[u].push(v);
         }
 
         ///DFS algorithm
-
         /// Performs a Depth-First Search on a given graph represented as an adjacency list and returns a vector of visited vertices in the order they were visited.
         ///
         /// # Arguments
@@ -67,32 +87,32 @@ pub mod dfs {
             visited.insert(u);
             println!("Visited node: {}", u);
             let mut visited_nodes = vec![u];
-        
+
             for &v in &self.edges[u] {
                 if !visited.contains(&v) {
                     visited_nodes.extend(self.d_fs(v, visited));
                 }
             }
-        
+
             visited_nodes
         }
-    }   
+    }
 
     /// Performs Depth first search algorithm on a given directed graph represented as an adjacency list.
     /// Prints a graph, where the nodes of the graph are in the visited order.
-    /// 
-    
+    ///
+
     /// # Input
     /// * `no_of_vertices` - Input the number of vertices in the graph
     /// * `no_of_edges` - Input the number of edges in the graph
     /// * `source` - The source vertex of an edge in the graph
     /// * `destination` - The destination of an edge in the graph
     /// * `Start_vertex` - The start vertex where BFS algorithm starts from
-    /// 
+    ///
     /// # Output
-    /// 
+    ///
     /// Prints the visit order of the graph
-    /// 
+    ///
     /// # Sample input
     /// ```
     /// Please Enter Number of Vertices : 5
@@ -117,65 +137,70 @@ pub mod dfs {
     ///Visited node: 4
     ///Visited node: 3
     ///```
-    pub fn dfs() 
-    {
-        ///read the number of vertices from the console
+    pub fn dfs() {
+        //read the number of vertices from the console
         let mut vertex = String::new();
         println!("******DFS Traversal*********");
         println!("****************************************************");
-        ///get the number of vertices
+        //get the number of vertices
         print!("Please Enter Number of Vertices : ");
-        let _= stdout().flush();
-        stdin().read_line(&mut vertex).expect("Enter valid number of vertices");
+        let _ = stdout().flush();
+        stdin()
+            .read_line(&mut vertex)
+            .expect("Enter valid number of vertices");
         let vertices: usize = vertex.trim().parse().expect("Invalid input");
-        ///get number of edges in the graph
+        //get number of edges in the graph
         let mut n_edges = String::new();
         print!("Please Enter Number of edges in the graph : ");
-        let _= stdout().flush();
+        let _ = stdout().flush();
         stdin().read_line(&mut n_edges).expect("Enter Valid Input");
         let n_edges: i32 = n_edges.trim().parse().expect("Invalid input for source");
-        ///assign the vertices to each edge from the console
+        //assign the vertices to each edge from the console
         let g = add_edges(vertices, n_edges);
-        ///get the source vertex
+        //get the source vertex
         let mut source = String::new();
         print!("Enter Source Vertex : ");
-        let _= stdout().flush();
-        stdin().read_line(&mut source).expect("Enter valid source vertex ");
+        let _ = stdout().flush();
+        stdin()
+            .read_line(&mut source)
+            .expect("Enter valid source vertex ");
         let source: usize = source.trim().parse().expect("Invalid input for source");
 
-        ///call DFS implementation
+        //call DFS implementation
 
         let mut visited = HashSet::new();
         g.d_fs(source, &mut visited);
     }
 
-    ///to return the vertices of each edge as a graph
-    pub fn add_edges(vertices: usize, edges: i32) -> Graph
-    {   ///intialize a new graph with the required number of vertices
+    ///To return the vertices of each edge as a graph
+    pub fn add_edges(vertices: usize, edges: i32) -> Graph {
+        //intialize a new graph with the required number of vertices
         let mut g = Graph::new(vertices);
 
-        for i in 0..(edges)
-        {   ///intialize source and destination
-
+        for _i in 0..(edges) {
+            //intialize source and destination
             let mut s = String::new();
             let mut d = String::new();
-            ///get the source
+            //get the source
             print!("Source : ");
-            let _= stdout().flush();
-            stdin().read_line(&mut s).expect("Please Enter Valid Input for .");
+            let _ = stdout().flush();
+            stdin()
+                .read_line(&mut s)
+                .expect("Please Enter Valid Input for .");
             let s: usize = s.trim().parse().expect("Invalid input for source");
-            ///get the destination
+            //get the destination
             print!("Destination : ");
-            let _= stdout().flush();
-            stdin().read_line(&mut d).expect("Please Enter Valid Input for .");
+            let _ = stdout().flush();
+            stdin()
+                .read_line(&mut d)
+                .expect("Please Enter Valid Input for .");
             let d: usize = d.trim().parse().expect("Invalid input for source");
-            /// add edge with source and destination
+            // add edge with source and destination
             g.add_edge(s, d);
             g.add_edge(d, s); // for undirected graphs
         }
-        ///return graph in the form containing vertices of the
+        //return graph in the form containing vertices of the
         return g;
-    
     }
 }
 #[cfg(test)]
@@ -195,8 +220,8 @@ mod tests {
 
         let mut visited = HashSet::new();
         let x = g.d_fs(2, &mut visited);
-        ///Check that the visited nodes match the expected set
-        let expected= vec![2, 0, 1, 3];
+        //Check that the visited nodes match the expected set
+        let expected = vec![2, 0, 1, 3];
         assert_eq!(x, expected);
         assert!(visited.contains(&0));
         assert!(visited.contains(&1));
@@ -214,8 +239,8 @@ mod tests {
 
         let mut visited = HashSet::new();
         let x = g.d_fs(0, &mut visited);
-        ///Check that the visited nodes match the expected set
-        let expected= vec![0,1,3,2,4];
+        //Check that the visited nodes match the expected set
+        let expected = vec![0, 1, 3, 2, 4];
         assert_eq!(x, expected);
         assert!(visited.contains(&0));
         assert!(visited.contains(&1));
