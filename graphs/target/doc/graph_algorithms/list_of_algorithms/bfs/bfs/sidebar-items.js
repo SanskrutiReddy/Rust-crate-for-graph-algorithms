@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["add_edges",""],["bfs","Performs Breadth First Search algorithm on a given graph represented as an adjacency list. Prints a graph, where each inner vector contains the nodes of a strongly connected component in sorted order."]],"struct":[["Graph","A graph data structure with adjacency list representation."]]};

@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"graph_algorithms":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.66.1/core/marker/trait.StructuralEq.html\" title=\"trait core::marker::StructuralEq\">StructuralEq</a> for <a class=\"struct\" href=\"graph_algorithms/list_of_algorithms/bellmanford/bellmanford/struct.Node.html\" title=\"struct graph_algorithms::list_of_algorithms::bellmanford::bellmanford::Node\">Node</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
