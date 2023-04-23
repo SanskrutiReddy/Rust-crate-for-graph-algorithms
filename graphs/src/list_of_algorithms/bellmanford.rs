@@ -140,6 +140,7 @@ pub mod bellmanford {
     ///Source : 4
     ///Destination : 3
     ///Weight : -3
+    /// ```
     ///  # Sample output
     /// ```
     ///Distance from vertex 0 to vertex 0 is 0
