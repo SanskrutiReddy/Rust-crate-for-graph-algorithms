@@ -5,9 +5,9 @@ pub mod dfs {
 
     pub struct Graph {
         ///representation using adjacency list
-        edges : Vec<Vec<usize>>, 
+        pub edges : Vec<Vec<usize>>, 
         ///total no of vertices
-        vertices: usize, 
+        pub vertices: usize, 
     }
 
     impl Graph {
@@ -145,6 +145,7 @@ mod tests {
         assert!(visited.contains(&1));
         assert!(visited.contains(&2));
         assert!(visited.contains(&3));
+        assert!(visited.contains(&4));
         assert_eq!(visited.len(), 5);
     }
 }
