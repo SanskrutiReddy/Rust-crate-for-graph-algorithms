@@ -11,7 +11,7 @@ pub use crate::list_of_algorithms::{ // Using the algorithms from 'list_of_algor
 /// The `main` function displays a list of different algorithms and allows the user to select one.
 /// 
 /// # Sample input
-/// ```
+/// ```text
 /// Please Select Any One of the Algorithms Below:
 /// 1. Dijkstra’s algorithm
 /// 2. Bellman ford algorithm
