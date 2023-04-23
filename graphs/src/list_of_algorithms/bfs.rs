@@ -133,13 +133,14 @@ pub mod bfs {
     ///Source : 2
     ///Destination : 4
     ///Enter Starting Vertex : 0
+    /// ```
     ///  # Sample output
     /// ```
-    ///Visited node: 0
-    ///Visited node: 1
-    ///Visited node: 2
-    ///Visited node: 3
-    ///Visited node: 4
+    /// Visited node: 0
+    /// Visited node: 1
+    /// Visited node: 2
+    /// Visited node: 3
+    /// Visited node: 4
     /// ```
     pub fn bfs() {
         //read the number of vertices from the console
