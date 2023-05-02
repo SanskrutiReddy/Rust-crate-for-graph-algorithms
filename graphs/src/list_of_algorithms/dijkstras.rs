@@ -110,7 +110,7 @@ pub mod dijkstras {
                 dist: dist[src],
             }]; // Creating a vector to store nodes for priority queue  
 
-            // Loop till the BinaryHeap is empty
+            // Loop till the nodes is empty
             while !nodes.is_empty() {   
                 nodes.sort_by_key(|n| n.dist); // Sort the nodes vector by their distances
                 let node = nodes.remove(0); // Get the node with minimum distance from the front of the vector
