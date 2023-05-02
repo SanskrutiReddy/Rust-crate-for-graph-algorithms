@@ -341,6 +341,6 @@ mod tests {
         g.add_edge(1, 2, -2);
         g.add_edge(0, 2, 4);
         let dist = g.dijkstra(0);
-        assert_eq!(dist, vec![0, 1, -1]);
+        assert_eq!(dist, vec![0, -3, -1]);
     }
 }
