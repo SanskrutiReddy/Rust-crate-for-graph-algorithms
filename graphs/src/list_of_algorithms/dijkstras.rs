@@ -334,13 +334,4 @@ mod tests {
         assert_eq!(dist, vec![0, 10, 5, i32::max_value(), i32::max_value()]);
     }
 
-    #[test]
-    fn test_negative_weights() {
-        let mut g = Graph::new(3);
-        g.add_edge(0, 1, 1);
-        g.add_edge(1, 2, -2);
-        g.add_edge(0, 2, 4);
-        let dist = g.dijkstra(0);
-        assert_eq!(dist, vec![0, -3, -1]);
-    }
 }
