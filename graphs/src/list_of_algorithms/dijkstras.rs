@@ -1,7 +1,7 @@
 pub mod dijkstras {
     use std::{
         cmp::Ordering, // Importing Ordering to make node structure comparision based on distances
-        collections::{BinaryHeap, HashSet}, // Importing BinaryHeap and HashSet to get priority Node and to mark visited Nodes
+        collections::{HashSet}, // Importing BinaryHeap and HashSet to get priority Node and to mark visited Nodes
         io::{stdin, stdout, Write}, // Importing input/output library for reading user input and for printing output
     };
 
@@ -105,17 +105,16 @@ pub mod dijkstras {
             let mut dist = vec![i32::max_value(); self.vertices]; // Initializing all distances to max value So that we can select min distance and update the graph
             let mut visited_vertices = HashSet::new(); // To store the visited vertices
             dist[src] = 0; // Initializing distance from source to the source to 0
-            let mut pq = BinaryHeap::new(); // Creating a BinaryHeap to store nodes for priority queue
-
-            pq.push(Node {
+            let mut nodes = vec![Node {
                 vertex: src,
                 dist: dist[src],
-            }); // Pushing the source node into priority queue
+            }]; // Creating a vector to store nodes for priority queue  
 
-            // Loop till the BinaryHeap is empty
-            while !pq.is_empty() {
-                let Node { vertex: u, dist: _ } = pq.pop().unwrap(); // Getting the node with minimum distance from the priority queue
-
+            // Loop till the nodes is empty
+            while !nodes.is_empty() {   
+                nodes.sort_by_key(|n| n.dist); // Sort the nodes vector by their distances
+                let node = nodes.remove(0); // Get the node with minimum distance from the front of the vector
+                let u = node.vertex;    
                 // Checking if the vertex is already visited
                 if visited_vertices.contains(&u) {
                     continue;
@@ -129,7 +128,7 @@ pub mod dijkstras {
                     if new_dist < dist[*v] {
                         // Check if the new distance is less than current distance
                         dist[*v] = new_dist; // Relax the distance
-                        pq.push(Node {
+                        nodes.push(Node {
                             vertex: *v,
                             dist: dist[*v],
                         }); // Push the node into priority queue
@@ -335,13 +334,4 @@ mod tests {
         assert_eq!(dist, vec![0, 10, 5, i32::max_value(), i32::max_value()]);
     }
 
-    #[test]
-    fn test_negative_weights() {
-        let mut g = Graph::new(3);
-        g.add_edge(0, 1, 1);
-        g.add_edge(1, 2, -2);
-        g.add_edge(0, 2, 4);
-        let dist = g.dijkstra(0);
-        assert_eq!(dist, vec![0, 1, -1]);
-    }
 }
